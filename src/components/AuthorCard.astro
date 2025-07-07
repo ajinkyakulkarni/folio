@@ -11,6 +11,14 @@ export interface Props {
 
 const baseUrl = import.meta.env.BASE_URL;
 
+// Helper to generate URLs
+const getUrl = (path: string) => {
+  if (path === '/') return baseUrl;
+  const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const pathPart = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${pathPart}`;
+};
+
 const { name, slug, bio, avatar, position, company, blogCount } = Astro.props;
 ---
 
@@ -31,7 +39,7 @@ const { name, slug, bio, avatar, position, company, blogCount } = Astro.props;
     )}
     <div class="flex-1">
       <h3 class="text-lg font-semibold">
-        <a href={`${baseUrl}authors/${slug}`} class="text-gray-900 hover:text-indigo-600">
+        <a href={getUrl(`/authors/${slug}`)} class="text-gray-900 hover:text-indigo-600">
           {name}
         </a>
       </h3>

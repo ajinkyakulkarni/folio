@@ -4,7 +4,14 @@ const baseUrl = import.meta.env.BASE_URL;
 
 // Helper to generate URLs
 const getUrl = (path: string) => {
-  return path.startsWith('/') ? `${baseUrl}${path.slice(1)}` : path;
+  // baseUrl typically ends with '/', so we need to handle this carefully
+  if (path === '/') return baseUrl;
+  
+  // Ensure we don't double up on slashes
+  const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const pathPart = path.startsWith('/') ? path : `/${path}`;
+  
+  return `${base}${pathPart}`;
 };
 
 // Helper to check active state
