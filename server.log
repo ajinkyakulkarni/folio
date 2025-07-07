@@ -305,3 +305,25 @@ The collection "portfolio" does not exist or is empty. Please check your content
 22:42:01 [200] / 26ms
 22:42:01 [200] /tags 16ms
 22:42:01 [200] / 10ms
+07:45:45 Configuration file updated. Restarting...
+07:45:45 [watch] astro.config.mjs
+07:45:45 [watch] astro.config.mjs
+07:45:45 [vite] Re-optimizing dependencies because vite config has changed
+07:45:45 [content] Syncing content
+07:45:45 [content] Astro config changed
+07:45:45 [content] Clearing content store
+07:45:45 [WARN] [glob-loader] No files found matching "**/*.md,!**/_*/**/*.md,!**/_*.md" in directory "src/content/portfolio"
+[Shiki] The language "rego" doesn't exist, falling back to "plaintext".
+07:45:46 [content] Synced content
+07:45:46 [types] Generated 579ms
+07:45:46 [vite] Re-optimizing dependencies because vite config has changed
+07:52:09 Configuration file updated. Restarting...
+07:52:09 [vite] Re-optimizing dependencies because vite config has changed
+07:52:09 [content] Syncing content
+07:52:09 [content] Astro config changed
+07:52:09 [content] Clearing content store
+07:52:09 [WARN] [glob-loader] No files found matching "**/*.md,!**/_*/**/*.md,!**/_*.md" in directory "src/content/portfolio"
+[Shiki] The language "rego" doesn't exist, falling back to "plaintext".
+07:52:09 [content] Synced content
+07:52:09 [types] Generated 566ms
+07:52:09 [vite] Re-optimizing dependencies because vite config has changed

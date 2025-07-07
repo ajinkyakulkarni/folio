@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# server logs
+server.log
+
+# editor files
+.vscode/
+*.swp
+*.swo
