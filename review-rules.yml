@@ -1,0 +1,188 @@
+# Content Review Rules Configuration
+
+content_rules:
+  # Minimum and maximum word count for blog posts
+  word_count:
+    min: 300
+    max: 10000
+    
+  # Required fields in frontmatter
+  required_fields:
+    blog:
+      - title
+      - description
+      - author
+      - publishDate
+      - category
+      - tags
+    authors:
+      - name
+      - email
+      - bio
+      - skills
+      - joinedDate
+    portfolio:
+      - title
+      - description
+      - author
+      - projectDate
+      - technologies
+      - category
+      
+  # Content quality checks
+  quality_checks:
+    # Grammar and spelling check threshold (0-1)
+    grammar_score: 0.8
+    
+    # Readability score threshold (Flesch Reading Ease)
+    readability_score: 30
+    
+    # Originality check threshold (0-1)
+    originality_score: 0.9
+    
+    # Check for code formatting in technical posts
+    code_formatting: true
+    
+    # Check for proper markdown structure
+    markdown_validation: true
+    
+  # Prohibited content patterns
+  prohibited_content:
+    # Spam keywords and patterns
+    spam_patterns:
+      - "buy now"
+      - "click here"
+      - "limited time offer"
+      - "act now"
+      - "100% guaranteed"
+      - "risk free"
+      - "viagra"
+      - "casino"
+      - "lottery"
+      
+    # Inappropriate language
+    inappropriate_language:
+      - profanity
+      - hate_speech
+      - discriminatory_content
+      - personal_attacks
+      
+    # Security concerns
+    security_patterns:
+      - "password:"
+      - "api_key:"
+      - "secret:"
+      - "private_key:"
+      - "access_token:"
+      
+  # Content guidelines
+  guidelines:
+    # Title requirements
+    title:
+      min_length: 10
+      max_length: 100
+      no_all_caps: true
+      no_clickbait: true
+      
+    # Description requirements
+    description:
+      min_length: 50
+      max_length: 300
+      
+    # Tag requirements
+    tags:
+      min_count: 2
+      max_count: 10
+      allowed_pattern: "^[a-z0-9-]+$"
+      
+    # Category validation
+    categories:
+      allowed:
+        - "Web Development"
+        - "Mobile Development"
+        - "DevOps"
+        - "Data Science"
+        - "Machine Learning"
+        - "Cloud Computing"
+        - "Cybersecurity"
+        - "UI/UX Design"
+        - "Backend Development"
+        - "Frontend Development"
+        - "Full Stack"
+        - "Career"
+        - "Best Practices"
+        - "Tutorial"
+        - "Opinion"
+        
+  # Author validation
+  author_rules:
+    # New authors must have complete profiles
+    require_complete_profile: true
+    
+    # Minimum bio length
+    min_bio_length: 100
+    
+    # Required social proof (at least one)
+    social_proof:
+      - github
+      - linkedin
+      - website
+      
+  # Media and code validation
+  media_rules:
+    # Allowed image formats
+    allowed_image_formats:
+      - jpg
+      - jpeg
+      - png
+      - gif
+      - webp
+      - svg
+      
+    # Maximum image size (MB)
+    max_image_size: 5
+    
+    # Code snippet requirements
+    code_snippets:
+      require_language: true
+      max_lines: 200
+      require_title: false
+      
+  # SEO requirements
+  seo_rules:
+    # Meta description presence
+    require_meta_description: true
+    
+    # Alt text for images
+    require_image_alt_text: true
+    
+    # URL slug format
+    slug_pattern: "^[a-z0-9-]+$"
+    
+# Auto-approval conditions
+auto_approval:
+  # Approve if all checks pass
+  approve_on_all_pass: true
+  
+  # Trusted authors (auto-approve their content)
+  trusted_authors: []
+  
+  # Require manual review for first-time contributors
+  manual_review_first_time: true
+  
+  # Categories that always require manual review
+  sensitive_categories:
+    - "Career"
+    - "Opinion"
+    
+# Review feedback templates
+feedback_templates:
+  approval: |
+    Great job! Your content has been approved and meets all our quality standards.
+    
+  needs_work: |
+    Thank you for your contribution! We've identified some areas that need improvement before we can merge your content.
+    
+  first_time: |
+    Welcome to our platform! As a first-time contributor, your content will be manually reviewed by our team.
+    This usually takes 24-48 hours. Thank you for your patience!

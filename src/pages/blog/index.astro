@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const authors = await getCollection('authors');
+
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+// Get unique categories and tags
+const categories = [...new Set(allPosts.map(post => post.data.category))];
+const allTags = allPosts.flatMap(post => post.data.tags);
+const uniqueTags = [...new Set(allTags)];
+---
+
+<BaseLayout title="Blog">
+  
+  <div class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900">Blog</h1>
+        <p class="mt-2 text-lg text-gray-600">
+          Insights, tutorials, and stories from our community
+        </p>
+      </div>
+      
+      <!-- Categories -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Browse by Category</h2>
+        <div class="flex flex-wrap gap-2">
+          {categories.map(category => (
+            <a
+              href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200 transition"
+            >
+              {category}
+            </a>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Blog Posts Grid -->
+      {sortedPosts.length > 0 ? (
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {sortedPosts.map((post) => {
+            const author = authors.find(a => a.slug === post.data.author);
+            return (
+              <BlogCard
+                title={post.data.title}
+                slug={post.slug}
+                description={post.data.description}
+                author={author?.data.name || 'Unknown Author'}
+                authorSlug={post.data.author}
+                publishDate={post.data.publishDate}
+                category={post.data.category}
+                tags={post.data.tags}
+                heroImage={post.data.heroImage}
+                featured={post.data.featured}
+                readingTime={post.data.readingTime}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-gray-500">No blog posts found.</p>
+        </div>
+      )}
+      
+      <!-- Tags Cloud -->
+      <div class="mt-16">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Popular Tags</h2>
+        <div class="flex flex-wrap gap-2">
+          {uniqueTags.slice(0, 20).map(tag => (
+            <a
+              href={`/tags/${tag}`}
+              class="text-sm px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

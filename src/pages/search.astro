@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search">
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Search</h1>
+      <p class="text-lg text-gray-600">
+        Find articles and authors across our platform
+      </p>
+    </div>
+    
+    <!-- Search Input -->
+    <div class="max-w-2xl mx-auto mb-8">
+      <div class="relative">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for articles, authors, or topics..."
+          class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        />
+        <svg
+          class="absolute left-4 top-3.5 h-5 w-5 text-gray-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+      </div>
+      
+      <!-- Filter Options -->
+      <div class="mt-4 flex flex-wrap gap-2">
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="filter-posts" checked class="rounded text-indigo-600" />
+          <span class="ml-2 text-sm">Articles</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="filter-authors" checked class="rounded text-indigo-600" />
+          <span class="ml-2 text-sm">Authors</span>
+        </label>
+      </div>
+    </div>
+    
+    <!-- Results Container -->
+    <div id="search-results" class="max-w-4xl mx-auto">
+      <div class="text-center py-12 text-gray-500">
+        Start typing to search...
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // This is a basic client-side search implementation
+  // For production, consider using Pagefind or similar static search solution
+  
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const resultsContainer = document.getElementById('search-results');
+  const filterPosts = document.getElementById('filter-posts') as HTMLInputElement;
+  const filterAuthors = document.getElementById('filter-authors') as HTMLInputElement;
+  
+  // Fetch all data on page load
+  let allPosts: any[] = [];
+  let allAuthors: any[] = [];
+  
+  async function loadData() {
+    try {
+      // In a real implementation, you would generate these JSON files during build
+      // For now, we'll use the API endpoints if available
+      const response = await fetch('/api/search-data.json');
+      if (response.ok) {
+        const data = await response.json();
+        allPosts = data.posts || [];
+        allAuthors = data.authors || [];
+      }
+    } catch (error) {
+      console.error('Error loading search data:', error);
+    }
+  }
+  
+  function performSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    
+    if (!query) {
+      resultsContainer!.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          Start typing to search...
+        </div>
+      `;
+      return;
+    }
+    
+    const searchPosts = filterPosts.checked;
+    const searchAuthors = filterAuthors.checked;
+    
+    let results = [];
+    
+    // Search posts
+    if (searchPosts) {
+      const postResults = allPosts.filter(post => 
+        post.title.toLowerCase().includes(query) ||
+        post.description.toLowerCase().includes(query) ||
+        post.tags.some((tag: string) => tag.toLowerCase().includes(query))
+      );
+      
+      results.push(...postResults.map(post => ({
+        type: 'post',
+        ...post
+      })));
+    }
+    
+    // Search authors
+    if (searchAuthors) {
+      const authorResults = allAuthors.filter(author =>
+        author.name.toLowerCase().includes(query) ||
+        author.bio.toLowerCase().includes(query) ||
+        author.skills.some((skill: string) => skill.toLowerCase().includes(query))
+      );
+      
+      results.push(...authorResults.map(author => ({
+        type: 'author',
+        ...author
+      })));
+    }
+    
+    // Display results
+    if (results.length === 0) {
+      resultsContainer!.innerHTML = `
+        <div class="text-center py-12 text-gray-500">
+          No results found for "${query}"
+        </div>
+      `;
+    } else {
+      resultsContainer!.innerHTML = `
+        <div class="mb-4 text-sm text-gray-600">
+          Found ${results.length} result${results.length === 1 ? '' : 's'}
+        </div>
+        <div class="space-y-4">
+          ${results.map(result => {
+            if (result.type === 'post') {
+              return `
+                <div class="bg-white rounded-lg shadow p-6">
+                  <div class="text-sm text-indigo-600 mb-1">Article</div>
+                  <h3 class="text-lg font-semibold mb-2">
+                    <a href="/blog/${result.slug}" class="text-gray-900 hover:text-indigo-600">
+                      ${result.title}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-2">${result.description}</p>
+                  <div class="text-sm text-gray-500">
+                    By ${result.authorName} • ${result.category}
+                  </div>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="bg-white rounded-lg shadow p-6">
+                  <div class="text-sm text-purple-600 mb-1">Author</div>
+                  <h3 class="text-lg font-semibold mb-2">
+                    <a href="/authors/${result.slug}" class="text-gray-900 hover:text-indigo-600">
+                      ${result.name}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-2">${result.bio}</p>
+                  <div class="text-sm text-gray-500">
+                    ${result.position} ${result.company ? `at ${result.company}` : ''}
+                  </div>
+                </div>
+              `;
+            }
+          }).join('')}
+        </div>
+      `;
+    }
+  }
+  
+  // Event listeners
+  searchInput.addEventListener('input', performSearch);
+  filterPosts.addEventListener('change', performSearch);
+  filterAuthors.addEventListener('change', performSearch);
+  
+  // Load data on page load
+  loadData();
+  
+  // Note: For production, implement proper static search with Pagefind:
+  // https://pagefind.app/
+</script>

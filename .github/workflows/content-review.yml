@@ -1,0 +1,102 @@
+name: Content Review
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/**/*.md'
+      - 'src/content/**/*.mdx'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          files: |
+            src/content/**/*.md
+            src/content/**/*.mdx
+            
+      - name: Validate content structure
+        run: |
+          echo "Validating content structure..."
+          node .github/scripts/validate-content.js "${{ steps.changed-files.outputs.all_changed_files }}"
+          
+      - name: Run LLM content review
+        id: llm-review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "Running LLM content review..."
+          node .github/scripts/llm-review.js "${{ steps.changed-files.outputs.all_changed_files }}" > review-output.json
+          
+      - name: Post review comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const reviewOutput = JSON.parse(fs.readFileSync('review-output.json', 'utf8'));
+            
+            let comment = '## 🤖 Automated Content Review\n\n';
+            
+            if (reviewOutput.approved) {
+              comment += '✅ **This content has been approved!**\n\n';
+              comment += '### Summary\n';
+              comment += reviewOutput.summary + '\n\n';
+              
+              if (reviewOutput.suggestions.length > 0) {
+                comment += '### Suggestions for improvement\n';
+                reviewOutput.suggestions.forEach(suggestion => {
+                  comment += `- ${suggestion}\n`;
+                });
+              }
+            } else {
+              comment += '❌ **This content requires changes before merging.**\n\n';
+              comment += '### Issues found\n';
+              reviewOutput.issues.forEach(issue => {
+                comment += `- **${issue.type}**: ${issue.message}\n`;
+              });
+              comment += '\n### Required actions\n';
+              comment += 'Please address the issues above and update your pull request.\n';
+            }
+            
+            comment += '\n---\n';
+            comment += '*This review was generated automatically based on the rules in `review-rules.yml`*';
+            
+            // Post comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
+            
+            // Set PR status
+            if (!reviewOutput.approved) {
+              core.setFailed('Content review failed. Please address the issues.');
+            }
+            
+      - name: Auto-approve if passed
+        if: success()
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

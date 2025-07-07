@@ -1,0 +1,307 @@
+
+> impactful-blog@0.0.1 dev
+> astro dev
+
+17:35:35 [types] Generated 1ms
+17:35:35 [content] Syncing content
+17:35:35 [WARN] [glob-loader] No files found matching "**/*.md,!**/_*/**/*.md,!**/_*.md" in directory "src/content/portfolio"
+17:35:35 [content] Synced content
+
+ astro  v5.11.0 ready in 354 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+17:35:35 watching for file changes...
+17:35:45 [200] / 48ms
+17:35:51 [200] /about 4ms
+17:35:55 [200] / 14ms
+17:35:58 [200] / 10ms
+17:35:59 [200] /blog 7ms
+17:35:59 [200] /authors 4ms
+17:36:01 [200] /about 4ms
+17:36:40 [200] /authors 7ms
+17:36:41 [200] /blog 9ms
+17:36:43 [200] / 8ms
+17:36:49 [200] /blog/transformers-explained 10ms
+17:36:56 [200] / 10ms
+17:37:18 [watch] src/pages/index.astro
+17:37:18 [watch] src/pages/index.astro
+17:37:18 [200] / 9ms
+17:37:22 [200] /blog 9ms
+17:37:23 [200] /authors 6ms
+17:37:23 [200] /tags 5ms
+17:37:24 [200] /about 5ms
+17:37:25 [200] /about 4ms
+17:37:30 [200] /blog 9ms
+17:37:32 [200] /categories/backend-development 5ms
+17:37:37 [200] /blog/graphql-vs-rest 6ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:37:46 [200] /authors/jane-smith 4ms
+17:37:53 [200] / 7ms
+17:37:57 [200] /blog 6ms
+17:37:58 [200] /authors 7ms
+17:37:59 [200] /tags 6ms
+17:37:59 [200] /about 2ms
+17:38:13 [watch] src/pages/blog/index.astro
+17:38:13 [watch] src/pages/blog/index.astro
+17:38:13 [200] /about 10ms
+17:38:19 [watch] src/pages/blog/[slug].astro
+17:38:19 [200] /about 7ms
+17:38:25 [watch] src/pages/authors/index.astro
+17:38:25 [watch] src/pages/authors/index.astro
+17:38:25 [200] /about 7ms
+17:38:31 [watch] src/pages/authors/[slug].astro
+17:38:31 [watch] src/pages/authors/[slug].astro
+17:38:32 [200] /about 7ms
+17:38:32 [watch] src/pages/authors/[slug].astro
+17:38:32 [watch] src/pages/authors/[slug].astro
+17:38:32 [200] /about 6ms
+17:38:37 [watch] src/pages/categories/[category].astro
+17:38:37 [watch] src/pages/categories/[category].astro
+17:38:37 [200] /about 10ms
+17:38:43 [watch] src/pages/tags/index.astro
+17:38:43 [watch] src/pages/tags/index.astro
+17:38:43 [200] /about 9ms
+17:38:49 [200] /authors 4ms
+17:38:49 [watch] src/pages/tags/[tag].astro
+17:38:49 [watch] src/pages/tags/[tag].astro
+17:38:49 [200] /authors 11ms
+17:38:49 [200] /tags 5ms
+17:38:54 [watch] src/pages/search.astro
+17:38:54 [watch] src/pages/search.astro
+17:38:54 [200] /tags 10ms
+17:38:56 [200] /tags/devops 5ms
+17:39:02 [404] /.well-known/appspecific/com.chrome.devtools.json 1ms
+17:40:44 [200] /tags 8ms
+17:40:49 [watch] src/pages/tags/index.astro
+17:40:49 [watch] src/pages/tags/index.astro
+17:40:49 [200] /tags 8ms
+17:40:57 [200] / 7ms
+17:41:07 [200] /blog 5ms
+17:41:07 [200] /tags 5ms
+17:41:09 [200] /tags 6ms
+17:41:11 [200] /tags 8ms
+17:41:12 [200] /tags/kubernetes 8ms
+17:41:27 [200] /tags 7ms
+17:41:29 [200] /tags/kubernetes 7ms
+17:41:31 [watch] src/components/Navigation.astro
+17:41:31 [watch] src/components/Navigation.astro
+17:41:31 [200] /tags 9ms
+17:41:35 [watch] /src/layouts/BaseLayout.astro?astro&type=style&index=0&lang.css
+17:41:35 [200] /tags 24ms
+17:41:35 [watch] /src/layouts/BaseLayout.astro?astro&type=style&index=0&lang.css
+17:41:40 [watch] src/pages/about.astro
+17:41:40 [watch] src/pages/about.astro
+17:41:40 [200] /tags 8ms
+17:41:43 [200] /tags 5ms
+17:41:44 [200] /about 4ms
+17:41:48 [200] / 7ms
+17:41:49 [watch] README.md
+17:41:49 [watch] README.md
+17:41:50 [200] / 9ms
+17:42:25 [watch] src/pages/index.astro
+17:42:25 [watch] src/pages/index.astro
+17:42:25 [200] / 9ms
+17:42:28 [watch] src/components/Navigation.astro
+17:42:28 [watch] src/components/Navigation.astro
+17:42:28 [200] / 11ms
+17:42:33 [watch] README.md
+17:42:33 [watch] README.md
+17:42:33 [200] / 10ms
+17:42:38 [watch] src/pages/authors/index.astro
+17:42:38 [watch] src/pages/authors/index.astro
+17:42:39 [200] / 9ms
+17:42:43 [watch] src/components/FeaturedPosts.astro
+17:42:43 [watch] src/components/FeaturedPosts.astro
+17:42:43 [200] / 10ms
+17:42:46 [200] / 7ms
+17:42:50 [watch] src/content/authors/jane-smith.md
+17:42:50 [watch] src/content/authors/jane-smith.md
+17:42:50 [glob-loader] Reloaded data from jane-smith.md
+17:42:50 [200] / 8ms
+17:42:51 [200] / 42ms
+17:42:51 [200] /blog/reinforcement-learning-practical 7ms
+17:42:53 Configuration file updated. Restarting...
+17:42:53 [watch] package.json
+17:42:53 [watch] package.json
+17:42:53 [vite] Re-optimizing dependencies because vite config has changed
+17:42:54 [content] Syncing content
+17:42:54 [WARN] [glob-loader] No files found matching "**/*.md,!**/_*/**/*.md,!**/_*.md" in directory "src/content/portfolio"
+17:42:54 [content] Synced content
+17:42:54 [types] Generated 147ms
+17:42:54 [vite] Re-optimizing dependencies because vite config has changed
+17:42:55 [200] /blog/reinforcement-learning-practical 20ms
+17:42:59 [watch] README.md
+17:42:59 [watch] README.md
+17:42:59 [200] /blog/reinforcement-learning-practical 8ms
+17:42:59 [200] /tags 6ms
+17:43:00 [200] /authors 3ms
+17:43:01 [200] /blog 5ms
+17:43:01 [200] / 4ms
+17:43:03 [200] /about 2ms
+17:43:04 [200] / 11ms
+17:43:16 [200] /about 4ms
+17:43:17 [200] /authors 4ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:43:18 [200] /authors/alex-chen 5ms
+17:43:48 [watch] src/pages/index.astro
+17:43:48 [watch] src/pages/index.astro
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:43:48 [200] /authors/alex-chen 9ms
+17:43:58 [watch] src/pages/index.astro
+17:43:58 [watch] src/pages/index.astro
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:43:59 [200] /authors/alex-chen 9ms
+17:45:04 [200] /blog/mlops-best-practices 7ms
+17:45:19 [200] / 4ms
+17:45:19 [watch] src/content/config.ts
+17:45:19 [watch] src/content/config.ts
+17:45:19 [content] Syncing content
+17:45:19 [content] Content config changed
+17:45:19 [content] Clearing content store
+17:45:19 [WARN] [glob-loader] No files found matching "**/*.md,!**/_*/**/*.md,!**/_*.md" in directory "src/content/portfolio"
+17:45:19 [200] / 106ms
+[Shiki] The language "rego" doesn't exist, falling back to "plaintext".
+17:45:20 [200] / 3ms
+17:45:20 [content] Synced content
+17:45:20 [200] / 25ms
+17:45:21 [200] /about 4ms
+17:45:22 [200] /authors 5ms
+17:45:23 [200] /blog 8ms
+17:45:23 [200] / 4ms
+17:45:42 [watch] src/content/authors/alex-chen.md
+17:45:42 [watch] src/content/authors/alex-chen.md
+17:45:42 [glob-loader] Reloaded data from alex-chen.md
+17:45:42 [200] / 13ms
+17:45:43 [200] / 38ms
+17:45:56 [watch] src/content/authors/sarah-johnson.md
+17:45:56 [watch] src/content/authors/sarah-johnson.md
+17:45:56 [glob-loader] Reloaded data from sarah-johnson.md
+17:45:56 [200] / 14ms
+17:45:57 [200] / 30ms
+17:46:20 [watch] src/pages/authors/[slug].astro
+17:46:20 [watch] src/pages/authors/[slug].astro
+17:46:21 [200] / 15ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:47:04 [200] /authors/alex-chen 4ms
+17:47:42 [200] / 8ms
+17:47:53 [200] /blog/reinforcement-learning-practical 7ms
+17:48:02 [200] / 7ms
+17:48:03 [200] /authors 6ms
+17:48:04 [200] /tags 7ms
+17:48:26 [200] /tags/rest 4ms
+17:48:39 [watch] src/pages/tags/index.astro
+17:48:39 [watch] src/pages/tags/index.astro
+17:48:39 [200] /tags 13ms
+17:48:39 [200] / 8ms
+17:49:34 [watch] src/pages/tags/index.astro
+17:49:34 [watch] src/pages/tags/index.astro
+17:49:35 [200] /tags 11ms
+17:49:35 [200] / 8ms
+17:49:38 [200] / 6ms
+17:49:51 [200] / 6ms
+17:49:56 [watch] src/pages/tags/index.astro
+17:49:56 [watch] src/pages/tags/index.astro
+17:49:56 [200] / 12ms
+17:49:56 [200] / 7ms
+17:50:08 [watch] src/pages/tags/index.astro
+17:50:08 [watch] src/pages/tags/index.astro
+17:50:08 [200] / 9ms
+17:50:08 [200] / 7ms
+17:51:02 [watch] src/pages/index.astro
+17:51:02 [watch] src/pages/index.astro
+17:51:02 [200] / 9ms
+17:51:02 [200] / 9ms
+17:51:27 [watch] src/pages/index.astro
+17:51:27 [watch] src/pages/index.astro
+17:51:27 [200] / 12ms
+17:51:27 [200] / 9ms
+17:51:43 [watch] src/pages/tags/index.astro
+17:51:43 [watch] src/pages/tags/index.astro
+17:51:43 [200] / 15ms
+17:51:43 [200] / 11ms
+17:52:36 [watch] src/pages/index.astro
+17:52:36 [watch] src/pages/index.astro
+17:52:36 [200] / 12ms
+17:52:36 [200] / 8ms
+17:53:27 [200] / 5ms
+17:53:33 [200] /blog 7ms
+17:53:38 [200] /authors 5ms
+17:53:42 [ERROR] Cannot apply unknown utility class `text-gray-500`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+  Stack trace:
+    at /Users/akulkarn/Desktop/Code/UAH/impactful-blog/impactful-blog/src/pages/tags/index.astro?astro&type=style&index=0&lang.css
+    [...] See full stack trace in the browser, or rerun with --verbose.
+17:54:11 [watch] src/pages/tags/index.astro
+17:54:11 [200] / 8ms
+17:54:12 [200] / 8ms
+17:54:12 [ERROR] Cannot apply unknown utility class `text-gray-500`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+  Stack trace:
+    at onInvalidCandidate (file:///Users/akulkarn/Desktop/Code/UAH/impactful-blog/impactful-blog/node_modules/tailwindcss/dist/chunk-4WXWQT6Y.mjs:18:1312)
+    [...] See full stack trace in the browser, or rerun with --verbose.
+17:54:18 [watch] src/pages/tags/index.astro
+17:54:18 [200] / 8ms
+17:54:19 [200] / 7ms
+17:54:19 [200] /tags 4ms
+17:54:45 [watch] /src/layouts/BaseLayout.astro?astro&type=style&index=0&lang.css
+17:54:45 [watch] src/styles/global.css
+17:54:56 [watch] src/pages/tags/index.astro
+17:54:56 [200] / 10ms
+17:54:57 [200] / 7ms
+17:54:57 [200] /tags 4ms
+17:55:07 [watch] src/pages/tags/index.astro
+17:55:07 [200] / 8ms
+17:55:07 [200] / 8ms
+17:55:07 [200] /tags 4ms
+17:55:14 [watch] /src/layouts/BaseLayout.astro?astro&type=style&index=0&lang.css
+17:55:14 [watch] src/styles/global.css
+17:55:19 [200] /tags 7ms
+17:56:07 [200] / 10ms
+17:56:09 [200] /tags 8ms
+17:56:19 [200] /tags/devops 5ms
+17:56:20 [200] /about 4ms
+17:56:22 [200] /authors 6ms
+17:56:22 [200] /blog 9ms
+17:56:23 [200] / 7ms
+17:56:33 [200] /blog 8ms
+17:56:33 [200] /authors 6ms
+17:56:34 [200] /tags 6ms
+17:56:35 [200] /about 4ms
+17:56:37 [200] / 6ms
+17:56:38 [200] / 6ms
+17:57:03 [200] /blog 8ms
+17:57:05 [200] /blog/reinforcement-learning-practical 6ms
+17:57:10 [200] /authors 7ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+17:57:12 [200] /authors/alex-chen 7ms
+17:57:17 [200] /tags 7ms
+17:57:19 [200] /about 5ms
+18:01:23 [200] /authors 6ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+18:01:25 [200] /authors/alex-chen 7ms
+18:01:28 [200] /blog/reinforcement-learning-practical 6ms
+18:01:50 [200] /authors 5ms
+The collection "portfolio" does not exist or is empty. Please check your content config file for errors.
+18:01:51 [200] /authors/alex-chen 7ms
+18:01:54 [200] /blog/computer-vision-pytorch 6ms
+18:02:00 [200] /tags 6ms
+18:02:02 [200] /blog 8ms
+18:02:02 [200] / 8ms
+18:09:49 [200] / 5ms
+18:09:49 [200] / 4ms
+18:09:49 [200] /tags 4ms
+18:18:19 [200] /tags 4ms
+18:18:19 [200] / 5ms
+18:18:19 [200] / 5ms
+18:37:41 [200] / 5ms
+18:37:41 [200] / 4ms
+18:37:41 [200] /tags 4ms
+20:35:13 [200] /tags 19ms
+20:35:13 [200] / 6ms
+20:35:13 [200] / 6ms
+21:03:30 [200] / 14ms
+21:03:30 [200] /tags 3ms
+21:03:30 [200] / 4ms
+22:42:01 [200] / 26ms
+22:42:01 [200] /tags 16ms
+22:42:01 [200] / 10ms

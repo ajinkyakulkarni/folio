@@ -1,0 +1,45 @@
+---
+export interface Props {
+  name: string;
+  slug: string;
+  bio: string;
+  avatar?: string;
+  position?: string;
+  company?: string;
+  blogCount: number;
+}
+
+const { name, slug, bio, avatar, position, company, blogCount } = Astro.props;
+---
+
+<div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+  <div class="flex items-start space-x-4">
+    {avatar ? (
+      <img
+        src={avatar}
+        alt={name}
+        class="w-16 h-16 rounded-full object-cover"
+      />
+    ) : (
+      <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center">
+        <span class="text-2xl font-semibold text-indigo-600">
+          {name.charAt(0).toUpperCase()}
+        </span>
+      </div>
+    )}
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold">
+        <a href={`/authors/${slug}`} class="text-gray-900 hover:text-indigo-600">
+          {name}
+        </a>
+      </h3>
+      {position && company && (
+        <p class="text-sm text-gray-600">{position} at {company}</p>
+      )}
+      <p class="mt-2 text-gray-700 line-clamp-2">{bio}</p>
+      <p class="mt-2 text-sm text-gray-500">
+        {blogCount} {blogCount === 1 ? 'article' : 'articles'}
+      </p>
+    </div>
+  </div>
+</div>
