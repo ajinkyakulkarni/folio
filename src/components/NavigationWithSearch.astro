@@ -1,0 +1,326 @@
+---
+const currentPath = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL;
+
+// Helper to generate URLs
+const getUrl = (path: string) => {
+  if (path === '/') return baseUrl;
+  const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const pathPart = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${pathPart}`;
+};
+
+// Helper to check active state
+const isActive = (path: string) => {
+  const fullPath = getUrl(path);
+  if (path === '/') {
+    return currentPath === fullPath || currentPath === fullPath.slice(0, -1);
+  }
+  return currentPath.startsWith(fullPath);
+};
+
+const linkClass = (path: string) => {
+  const base = "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium";
+  if (isActive(path)) {
+    return `${base} border-indigo-500 text-gray-900`;
+  }
+  return `${base} border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700`;
+};
+---
+
+<nav class="bg-white shadow-sm border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex flex-1">
+        <div class="flex-shrink-0 flex items-center">
+          <a href={getUrl('/')} class="text-2xl font-bold text-indigo-600">
+            Folio
+          </a>
+        </div>
+        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+          <a href={getUrl('/')} class={linkClass('/')}>
+            Home
+          </a>
+          <a href={getUrl('/blog')} class={linkClass('/blog')}>
+            Blog
+          </a>
+          <a href={getUrl('/authors')} class={linkClass('/authors')}>
+            Authors
+          </a>
+          <a href={getUrl('/tags')} class={linkClass('/tags')}>
+            Tags
+          </a>
+          <a href={getUrl('/about')} class={linkClass('/about')}>
+            About
+          </a>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <!-- Search Box with Live Results -->
+        <div class="hidden lg:block">
+          <div class="relative" id="search-container">
+            <input
+              type="text"
+              id="navbar-search-input"
+              placeholder="Search..."
+              class="w-64 px-4 py-1.5 pl-10 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              autocomplete="off"
+            />
+            <svg
+              class="absolute left-3 top-2 h-4 w-4 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+            
+            <!-- Search Dropdown -->
+            <div 
+              id="search-dropdown" 
+              class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-auto hidden z-50"
+            >
+              <div id="search-results-dropdown" class="p-2">
+                <!-- Results will be inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Search Icon for Mobile -->
+        <a
+          href={getUrl('/search')}
+          class="lg:hidden text-gray-500 hover:text-gray-700"
+          aria-label="Search"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+        </a>
+        
+        <!-- GitHub Link -->
+        <a
+          href="https://github.com/ajinkyakulkarni/folio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-gray-500 hover:text-gray-700"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Load search data dynamically to avoid build-time issues
+  let searchData = { posts: [], authors: [] };
+  const baseUrl = import.meta.env.BASE_URL || '/folio/';
+  
+  const searchInput = document.getElementById('navbar-search-input');
+  const searchDropdown = document.getElementById('search-dropdown');
+  const searchResultsContainer = document.getElementById('search-results-dropdown');
+  
+  // Helper function to get URL
+  function getUrl(path) {
+    if (path === '/') return baseUrl;
+    const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+    const pathPart = path.startsWith('/') ? path : `/${path}`;
+    return `${base}${pathPart}`;
+  }
+  
+  // Load search data from search page
+  async function loadSearchData() {
+    try {
+      const response = await fetch(getUrl('/search/'));
+      const text = await response.text();
+      
+      // Extract search data from the search page
+      const match = text.match(/const searchData = ({[\s\S]*?});/);
+      if (match) {
+        // Use eval carefully here - we control the content
+        eval('searchData = ' + match[1]);
+      }
+    } catch (error) {
+      console.error('Failed to load search data:', error);
+    }
+  }
+  
+  // Initialize search data
+  loadSearchData();
+  
+  function performSearch(query) {
+    if (!query.trim()) {
+      searchDropdown.classList.add('hidden');
+      return;
+    }
+    
+    const lowerQuery = query.toLowerCase();
+    const results = [];
+    
+    // Search posts
+    const postResults = searchData.posts.filter(post => 
+      post.title.toLowerCase().includes(lowerQuery) ||
+      post.description.toLowerCase().includes(lowerQuery) ||
+      post.category.toLowerCase().includes(lowerQuery) ||
+      post.tags.some(tag => tag.toLowerCase().includes(lowerQuery)) ||
+      post.authorName.toLowerCase().includes(lowerQuery)
+    );
+    
+    // Search authors
+    const authorResults = searchData.authors.filter(author =>
+      author.name.toLowerCase().includes(lowerQuery) ||
+      author.bio.toLowerCase().includes(lowerQuery) ||
+      (author.position && author.position.toLowerCase().includes(lowerQuery)) ||
+      (author.company && author.company.toLowerCase().includes(lowerQuery)) ||
+      author.skills.some(skill => skill.toLowerCase().includes(lowerQuery))
+    );
+    
+    // Combine and limit results
+    results.push(...postResults.slice(0, 5));
+    results.push(...authorResults.slice(0, 3));
+    
+    displayResults(results, lowerQuery);
+  }
+  
+  function highlightMatch(text, query) {
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark class="bg-yellow-200">$1</mark>');
+  }
+  
+  function displayResults(results, query) {
+    if (results.length === 0) {
+      searchResultsContainer.innerHTML = `
+        <div class="p-4 text-center text-gray-500">
+          No results found for "${query}"
+        </div>
+      `;
+      searchDropdown.classList.remove('hidden');
+      return;
+    }
+    
+    // Group results by type
+    const posts = results.filter(r => r.type === 'post');
+    const authors = results.filter(r => r.type === 'author');
+    
+    let html = '';
+    
+    if (posts.length > 0) {
+      html += '<div class="mb-2"><div class="px-3 py-1 text-xs font-semibold text-gray-500 uppercase">Articles</div>';
+      posts.forEach(post => {
+        html += `
+          <a href="${getUrl('/blog/' + post.slug)}" class="block px-3 py-2 hover:bg-gray-50 rounded">
+            <div class="font-medium text-gray-900">${highlightMatch(post.title, query)}</div>
+            <div class="text-sm text-gray-500 truncate">${highlightMatch(post.description, query)}</div>
+            <div class="text-xs text-gray-400 mt-1">
+              <span class="inline-flex items-center">
+                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path>
+                </svg>
+                ${post.category}
+              </span>
+              <span class="mx-2">·</span>
+              <span>${post.authorName}</span>
+            </div>
+          </a>
+        `;
+      });
+      html += '</div>';
+    }
+    
+    if (authors.length > 0) {
+      html += '<div><div class="px-3 py-1 text-xs font-semibold text-gray-500 uppercase">Authors</div>';
+      authors.forEach(author => {
+        html += `
+          <a href="${getUrl('/authors/' + author.slug)}" class="block px-3 py-2 hover:bg-gray-50 rounded">
+            <div class="font-medium text-gray-900">${highlightMatch(author.name, query)}</div>
+            <div class="text-sm text-gray-500 truncate">${highlightMatch(author.bio, query)}</div>
+            ${author.position ? `<div class="text-xs text-gray-400">${author.position} ${author.company ? `at ${author.company}` : ''}</div>` : ''}
+          </a>
+        `;
+      });
+      html += '</div>';
+    }
+    
+    // Add "View all results" link
+    html += `
+      <div class="border-t border-gray-200 mt-2 pt-2">
+        <a href="${getUrl('/search')}?q=${encodeURIComponent(query)}" class="block px-3 py-2 text-sm text-indigo-600 hover:text-indigo-800 hover:bg-gray-50 rounded text-center">
+          View all results →
+        </a>
+      </div>
+    `;
+    
+    searchResultsContainer.innerHTML = html;
+    searchDropdown.classList.remove('hidden');
+  }
+  
+  // Handle form submission for search page redirect
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const query = e.target.value.trim();
+      if (query) {
+        window.location.href = getUrl('/search') + '?q=' + encodeURIComponent(query);
+      }
+    } else if (e.key === 'Escape') {
+      searchDropdown.classList.add('hidden');
+      searchInput.blur();
+    }
+  });
+  
+  // Debounce function
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Debounced search
+  const debouncedSearch = debounce((query) => {
+    performSearch(query);
+  }, 300);
+  
+  // Event listeners
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value;
+    debouncedSearch(query);
+  });
+  
+  searchInput.addEventListener('focus', (e) => {
+    if (e.target.value) {
+      performSearch(e.target.value);
+    }
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('search-container').contains(e.target)) {
+      searchDropdown.classList.add('hidden');
+    }
+  });
+</script>
