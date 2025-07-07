@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Search">
@@ -58,7 +60,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </div>
 </BaseLayout>
 
-<script>
+<script define:vars={{ baseUrl }}>
   // This is a basic client-side search implementation
   // For production, consider using Pagefind or similar static search solution
   
@@ -150,7 +152,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <div class="bg-white rounded-lg shadow p-6">
                   <div class="text-sm text-indigo-600 mb-1">Article</div>
                   <h3 class="text-lg font-semibold mb-2">
-                    <a href="/blog/${result.slug}" class="text-gray-900 hover:text-indigo-600">
+                    <a href="${baseUrl}blog/${result.slug}" class="text-gray-900 hover:text-indigo-600">
                       ${result.title}
                     </a>
                   </h3>
@@ -165,7 +167,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <div class="bg-white rounded-lg shadow p-6">
                   <div class="text-sm text-purple-600 mb-1">Author</div>
                   <h3 class="text-lg font-semibold mb-2">
-                    <a href="/authors/${result.slug}" class="text-gray-900 hover:text-indigo-600">
+                    <a href="${baseUrl}authors/${result.slug}" class="text-gray-900 hover:text-indigo-600">
                       ${result.name}
                     </a>
                   </h3>

@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedPosts from '../components/FeaturedPosts.astro';
 import { getCollection } from 'astro:content';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 // Get statistics
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const allAuthors = await getCollection('authors', ({ data }) => data.isActive);
@@ -49,13 +51,13 @@ const topAuthors = Array.from(authorPostCounts.entries())
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="/blog"
+            href={`${baseUrl}blog`}
             class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
           >
             Explore Articles
           </a>
           <a
-            href="/authors"
+            href={`${baseUrl}authors`}
             class="bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition"
           >
             Discover Authors
@@ -101,7 +103,7 @@ const topAuthors = Array.from(authorPostCounts.entries())
         <p class="text-lg text-gray-700 leading-relaxed mt-4">
           All content is preserved for 30+ years, creating a lasting archive of knowledge and expertise.
         </p>
-        <a href="/about" class="inline-block mt-6 text-indigo-600 hover:text-indigo-800 font-semibold">
+        <a href={`${baseUrl}about`} class="inline-block mt-6 text-indigo-600 hover:text-indigo-800 font-semibold">
           Learn more about our mission →
         </a>
       </div>
@@ -121,7 +123,7 @@ const topAuthors = Array.from(authorPostCounts.entries())
           <div class="grid gap-4 sm:grid-cols-2">
             {sortedTags.map(([tag, count]) => (
               <a
-                href={`/tags/${tag}`}
+                href={`${baseUrl}tags/${tag}`}
                 class="bg-black bg-opacity-20 rounded-lg p-4 hover:bg-opacity-30 transition-all border border-white border-opacity-20"
               >
                 <div class="text-lg font-semibold text-white">#{tag}</div>
@@ -130,7 +132,7 @@ const topAuthors = Array.from(authorPostCounts.entries())
             ))}
           </div>
           <div class="mt-4 text-center">
-            <a href="/tags" class="text-white hover:text-indigo-100 underline">
+            <a href={`${baseUrl}tags`} class="text-white hover:text-indigo-100 underline">
               View all tags →
             </a>
           </div>
@@ -142,7 +144,7 @@ const topAuthors = Array.from(authorPostCounts.entries())
           <div class="space-y-3">
             {topAuthors.map(({ author, count }, index) => (
               <a
-                href={`/authors/${author.slug}`}
+                href={`${baseUrl}authors/${author.slug}`}
                 class="flex items-center justify-between bg-black bg-opacity-20 rounded-lg p-3 hover:bg-opacity-30 transition-all border border-white border-opacity-20"
               >
                 <div class="flex items-center space-x-3">
@@ -175,7 +177,7 @@ const topAuthors = Array.from(authorPostCounts.entries())
             ))}
           </div>
           <div class="mt-4 text-center">
-            <a href="/authors" class="text-white hover:text-purple-100 underline">
+            <a href={`${baseUrl}authors`} class="text-white hover:text-purple-100 underline">
               View all authors →
             </a>
           </div>

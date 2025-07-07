@@ -1,0 +1,17 @@
+---
+export interface Props {
+  href: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const { href, class: className, ...props } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+
+// If it's an internal link (starts with /), prepend the base URL
+const url = href.startsWith('/') ? `${baseUrl}${href.slice(1)}` : href;
+---
+
+<a href={url} class={className} {...props}>
+  <slot />
+</a>

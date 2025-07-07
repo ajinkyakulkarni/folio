@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
 
+const baseUrl = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
@@ -28,7 +30,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
     <header class="mb-8">
       <div class="text-center mb-8">
         <a
-          href={`/categories/${post.data.category}`}
+          href={`${baseUrl}categories/${post.data.category}`}
           class="inline-block text-indigo-600 font-medium mb-2 hover:text-indigo-800"
         >
           {post.data.category}
@@ -59,7 +61,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
               )}
               <div class="text-left">
                 <a
-                  href={`/authors/${post.data.author}`}
+                  href={`${baseUrl}authors/${post.data.author}`}
                   class="text-gray-900 font-medium hover:text-indigo-600"
                 >
                   {author.data.name}
@@ -92,7 +94,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
       <div class="flex flex-wrap gap-2">
         {post.data.tags.map(tag => (
           <a
-            href={`/tags/${tag}`}
+            href={`${baseUrl}tags/${tag}`}
             class="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200"
           >
             #{tag}
@@ -121,7 +123,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
           )}
           <div class="flex-1">
             <h4 class="font-semibold">
-              <a href={`/authors/${post.data.author}`} class="text-gray-900 hover:text-indigo-600">
+              <a href={`${baseUrl}authors/${post.data.author}`} class="text-gray-900 hover:text-indigo-600">
                 {author.data.name}
               </a>
             </h4>

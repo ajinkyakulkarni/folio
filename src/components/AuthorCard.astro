@@ -9,6 +9,8 @@ export interface Props {
   blogCount: number;
 }
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const { name, slug, bio, avatar, position, company, blogCount } = Astro.props;
 ---
 
@@ -29,7 +31,7 @@ const { name, slug, bio, avatar, position, company, blogCount } = Astro.props;
     )}
     <div class="flex-1">
       <h3 class="text-lg font-semibold">
-        <a href={`/authors/${slug}`} class="text-gray-900 hover:text-indigo-600">
+        <a href={`${baseUrl}authors/${slug}`} class="text-gray-900 hover:text-indigo-600">
           {name}
         </a>
       </h3>
