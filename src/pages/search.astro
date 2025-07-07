@@ -223,6 +223,16 @@ const searchData = {
   filterPosts.addEventListener('change', performSearch);
   filterAuthors.addEventListener('change', performSearch);
   
+  // Check for search query in URL
+  window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query && searchInput) {
+      searchInput.value = query;
+      performSearch();
+    }
+  });
+  
   // Note: For production, implement proper static search with Pagefind:
   // https://pagefind.app/
 </script>

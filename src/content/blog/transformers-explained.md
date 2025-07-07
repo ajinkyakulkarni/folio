@@ -5,7 +5,7 @@ author: alex-chen
 publishDate: 2024-03-18
 heroImage: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop
 category: "Machine Learning"
-tags: ["transformers", "ai", "nlp", "deeplearning", "pytorch"]
+tags: ["transformers", "ai", "nlp", "deep-learning", "pytorch"]
 featured: true
 draft: false
 readingTime: 18
