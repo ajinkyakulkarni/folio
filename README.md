@@ -2,6 +2,8 @@
 
 A modern static website platform that combines blogging capabilities with professional portfolios, built with Astro, Tailwind CSS, and automated GitHub-based content management.
 
+![Folio Demo](demo.gif)
+
 ## Features
 
 - **Multi-Author Blogging**: Support for multiple authors with individual profiles
